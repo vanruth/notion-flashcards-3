@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "api/fetchNotion.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/api/fetchNotion", "dest": "api/fetchNotion.js" }
+  ]
+}
