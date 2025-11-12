@@ -1,0 +1,42 @@
+<!-- index.html or within your React/Next.js page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Notion Flashcards</title>
+  <script>
+    async function loadFlashcards() {
+      const response = await fetch('/api/fetchNotion');
+      const data = await response.json();
+      const container = document.getElementById('flashcard-container');
+      container.innerHTML = '';
+      data.forEach(card => {
+        const div = document.createElement('div');
+        div.className = 'flashcard';
+        div.textContent = card.word;
+        div.onclick = () => {
+          div.textContent = div.textContent === card.word ? card.translation : card.word;
+        };
+        container.appendChild(div);
+      });
+    }
+    window.onload = loadFlashcards;
+  </script>
+  <style>
+    .flashcard { 
+      border: 1px solid #ccc; 
+      padding: 1em; 
+      border-radius: 8px; 
+      margin: 1em; 
+      min-width:120px; 
+      text-align:center; 
+      cursor:pointer; 
+    }
+    #flashcard-container { display: flex; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+  <h1>Notion Flashcards</h1>
+  <div id="flashcard-container"></div>
+</body>
+</html>
